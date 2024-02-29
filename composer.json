@@ -9,5 +9,13 @@
     "psr-4": {
       "Idle\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Idle\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit tests/"
   }
 }
