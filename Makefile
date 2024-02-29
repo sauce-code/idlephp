@@ -1,13 +1,13 @@
-all: clean validate install test
+all: validate update test
 
 clean:
-	git -rm -f -X
+	git clean -f -d -X
 
-validate: composer.json
+validate:
 	composer validate --strict
 
-install:
-	composer install --prefer-dist --no-progress
+update:
+	composer update
 
 test:
 	composer run-script test
