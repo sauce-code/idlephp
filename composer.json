@@ -1,4 +1,7 @@
 {
+  "name": "idlephp/idlephp",
+  "description": "This is a short description.",
+  "license": "MIT",
   "require-dev": {
     "phpunit/phpunit": "10.2.4"
   },
