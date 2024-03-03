@@ -6,12 +6,13 @@ class EventQueue
 {
     private array $events;
 
-    public function add(AbstractEvent $event) {
+    public function add(AbstractEvent $event)
+    {
         // TODO
     }
 
-    public function getNext(): AbstractEvent {
+    public function getNext(): AbstractEvent
+    {
         return $this->events[0];
     }
-
 }

@@ -16,5 +16,4 @@ class UpgradeCommand extends AbstractCommand
     {
         return $this->building;
     }
-
 }

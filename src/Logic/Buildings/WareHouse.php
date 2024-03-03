@@ -32,5 +32,4 @@ class WareHouse extends AbstractBuilding
     {
         $this->res = $res;
     }
-
 }

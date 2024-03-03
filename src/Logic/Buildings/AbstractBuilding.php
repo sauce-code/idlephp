@@ -15,9 +15,9 @@ abstract class AbstractBuilding
         return $this->level;
     }
 
-    public abstract function getUpgradeCost(): Res;
+    abstract public function getUpgradeCost(): Res;
 
-    public abstract function getUpgradeTime(): int;
+    abstract public function getUpgradeTime(): int;
 
-    public abstract function upgrade(): void;
+    abstract public function upgrade(): void;
 }

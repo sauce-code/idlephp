@@ -12,10 +12,10 @@ abstract class AbstractEvent
         $this->date = $date;
     }
 
-    public function getDate() : int {
+    public function getDate() : int
+    {
         return $this->date;
     }
 
-    public abstract function fire();
-
+    abstract public function fire();
 }

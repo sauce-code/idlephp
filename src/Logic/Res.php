@@ -31,5 +31,4 @@ class Res
             $this->stone + $other->stone
         );
     }
-
 }

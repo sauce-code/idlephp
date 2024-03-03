@@ -15,5 +15,4 @@ class AbstractCommand
     {
         return $this->playerID;
     }
-
 }

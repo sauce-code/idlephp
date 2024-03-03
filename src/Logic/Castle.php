@@ -50,7 +50,8 @@ class Castle
         }
     }
 
-    public function getRes(): Res {
+    public function getRes(): Res
+    {
         return $this->res;
     }
 
@@ -65,8 +66,8 @@ class Castle
         // TODO
     }
 
-    public function getLevel(string $building) {
-
+    public function getLevel(string $building)
+    {
     }
 
     public function isUpgrading(): bool
@@ -76,7 +77,5 @@ class Castle
 
     public function abortUpgrade(): void
     {
-
     }
-
 }
