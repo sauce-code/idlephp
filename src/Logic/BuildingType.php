@@ -1,6 +1,6 @@
 <?php
 
-namespace Idle\Logic\Buildings;
+namespace Idle\Logic;
 
 enum BuildingType
 {

@@ -2,16 +2,16 @@
 
 namespace Idle\Logic;
 
-use http\Exception\InvalidArgumentException;
 use Idle\Logic\Buildings\ConstructionYard;
 use Idle\Logic\Buildings\LumberJack;
 use Idle\Logic\Buildings\StoneMason;
 use Idle\Logic\Events\EventQueue;
 use Idle\Logic\Time\Clock;
+use Idle\Logic\Time\Time;
 
 class Castle
 {
-    private int $time;
+    private Time $time;
     private Res $res;
     private ConstructionYard $constructionYard;
     private LumberJack $lumberjack;
