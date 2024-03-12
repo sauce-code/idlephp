@@ -102,5 +102,4 @@ class View
         }
         return $main;
     }
-
 }
