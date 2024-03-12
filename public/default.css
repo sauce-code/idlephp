@@ -28,22 +28,22 @@ div#container {
         "footer footer";
 }
 
-div#header {
+header {
     grid-area: header;
     background-color: #999;
 }
 
-div#main {
+main {
     grid-area: main;
     background-color: #888;
 }
 
-div#nav {
+nav {
     grid-area: nav;
     background-color: #777;
 }
 
-div#footer {
+footer {
     grid-area: footer;
     background-color: #999;
 }
@@ -103,7 +103,7 @@ div#building {
     width: fit-content;
     background-color: #090;
     display: grid;
-    grid-template-columns: 100px 100px 100px 100px;
+    grid-template-columns: 200px 200px 200px 200px;
     /*grid-template-rows: auto;*/
     grid-template-areas:
         "building-name building-level building-cost";
@@ -139,10 +139,10 @@ div.building {
     width: fit-content;
     background-color: #090;
     display: grid;
-    grid-template-columns: 100px 100px 100px 100px;
+    grid-template-columns: 200px 200px 200px 200px;
     /*grid-template-rows: auto;*/
     grid-template-areas:
-        "building-name building-level building-cost";
+        "building-name building-level building-cost building-up";
 }
 
 div.buildings-name {

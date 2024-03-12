@@ -2,10 +2,9 @@
 
 namespace Idle\View;
 
-use DOMDocument;
-use DOMNode;
+use DiDom\Document;
+use DiDom\Element;
 use Idle\Logic\Logic;
-use InvalidArgumentException;
 
 class View
 {
@@ -27,86 +26,81 @@ class View
 
         $values = $this->logic->get();
 
-        $doc = new DOMDocument();
-        $doc->loadHTMLFile("template.html");
+        $doc = new Document("template.html", true);
+        $doc->first("#res-value-lumber")->setValue($values["res"]["lumber"]);
+        $doc->first("#res-value-stone")->setValue($values["res"]["stone"]);
 
-        $doc->getElementById("res-value-lumber")->nodeValue = $values["res"]["lumber"];
-        $doc->getElementById("res-value-stone")->nodeValue = $values["res"]["stone"];
-
-        $main = $doc->getElementById("main");
-        switch ($page) {
-            case "overview":
-                $child = $doc->createElement("div");
-                $child->setAttribute("id", "main-overview");
-                $child->nodeValue = "main-overview";
-                $main->appendChild($child);
-                break;
-            case "buildings":
-                $child = $doc->createElement("div");
-                $child->setAttribute("id", "building");
-
-                $name = $doc->createElement("div");
-                $name->setAttribute("id", "building-name");
-                $name->nodeValue = $this->names["elements"]["name"];
-                $child->appendChild($name);
-
-                $level = $doc->createElement("div");
-                $level->setAttribute("id", "building-level");
-                $level->nodeValue = $this->names["elements"]["level"];
-                $child->appendChild($level);
-
-                $cost = $doc->createElement("div");
-                $cost->setAttribute("id", "building-cost");
-                $cost->nodeValue = $this->names["elements"]["cost"];
-                $child->appendChild($cost);
-
-                $up = $doc->createElement("div");
-                $up->setAttribute("id", "building-up");
-                $child->appendChild($up);
-
-                $main->appendChild($child);
-
-                $buildings = array("lumberjack", "stonemason");
-                foreach ($buildings as $building) {
-                    $child = $doc->createElement("div");
-                    $child->setAttribute("class", "building");
-
-                    $name = $doc->createElement("div");
-                    $name->setAttribute("class", "building-name");
-                    $name->nodeValue = $this->names["buildings"][$building];
-                    $child->appendChild($name);
-
-                    $level = $doc->createElement("div");
-                    $level->setAttribute("class", "building-level");
-                    $level->nodeValue = $values[$building]["level"];
-                    $child->appendChild($level);
-
-                    $cost = $doc->createElement("div");
-                    $cost->setAttribute("class", "building-cost");
-                    $cost->nodeValue = $values[$building]["cost"]["lumber"] . "L " .
-                        $values[$building]["cost"]["stone"] . "S";
-                    $child->appendChild($cost);
-
-                    $up = $doc->createElement("div");
-                    $up->setAttribute("id", "building-up");
-                    $button = $doc->createElement("a");
-                    $button->setAttribute("type", "nav-button");
-                    $button->setAttribute("href", "?page=buildings&up=" . $building);
-                    $button->nodeValue = "upgrade";
-                    $up->appendChild($button);
-                    $child->appendChild($up);
-
-                    $main->appendChild($child);
-                }
-
-                break;
-            default:
-                throw new InvalidArgumentException();
-        }
-
-
-        $doc->formatOutput = true;
-        $doc->preserveWhiteSpace = false;
-        return $doc->saveHTML();
+        $main = $doc->first("main");
+        $main->replace(match ($page) {
+            "overview" => $this->overview(),
+            "buildings" => $this->buildings($values)
+        });
+        return $doc->html();
     }
+
+    private function overview(): Element
+    {
+        $main = new Element("main");
+        $element = new Element("div", "main-overview");
+        $element->setAttribute("id", "main-overview");
+        $main->appendChild($element);
+        return $main;
+    }
+
+    private function buildings(array $values): Element
+    {
+        $main = new Element("main");
+
+        $div = new Element("div");
+        $div->setAttribute("id", "building");
+
+        $name = new Element("div", $this->names["elements"]["name"]);
+        $name->setAttribute("id", "building-name");
+        $div->appendChild($name);
+
+        $level = new Element("div", $this->names["elements"]["level"]);
+        $level->setAttribute("id", "building-level");
+        $div->appendChild($level);
+
+        $cost = new Element("div", $this->names["elements"]["cost"]);
+        $cost->setAttribute("id", "building-cost");
+        $div->appendChild($cost);
+
+        $up = new Element("div");
+        $up->setAttribute("id", "building-up");
+        $div->appendChild($up);
+
+        $main->appendChild($div);
+
+        $buildings = array("lumberjack", "stonemason");
+        foreach ($buildings as $building) {
+            $div = new Element("div");
+            $div->setAttribute("class", "building");
+
+            $name = new Element("div", $this->names["buildings"][$building]);
+            $name->setAttribute("class", "building-name");
+            $div->appendChild($name);
+
+            $level = new Element("div", $values[$building]["level"]);
+            $level->setAttribute("class", "building-level");
+            $div->appendChild($level);
+
+            $cost = new Element("div", $values[$building]["cost"]["lumber"] . "L " .
+                $values[$building]["cost"]["stone"] . "S");
+            $cost->setAttribute("class", "building-cost");
+            $div->appendChild($cost);
+
+            $up = new Element("div");
+            $up->setAttribute("id", "building-up");
+            $button = new Element("a", "upgrade");
+            $button->setAttribute("type", "nav-button");
+            $button->setAttribute("href", "?page=buildings&up=" . $building);
+            $up->appendChild($button);
+            $div->appendChild($up);
+
+            $main->appendChild($div);
+        }
+        return $main;
+    }
+
 }
