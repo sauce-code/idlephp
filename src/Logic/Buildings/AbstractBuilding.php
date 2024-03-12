@@ -8,7 +8,14 @@ abstract class AbstractBuilding
 {
     protected int $level;
 
+
+
     protected ConstructionYard $constructionYard;
+
+    public function __construct(int $level)
+    {
+        $this->level = $level;
+    }
 
     public function getLevel(): int
     {

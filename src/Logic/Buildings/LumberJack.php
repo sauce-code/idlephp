@@ -33,7 +33,7 @@ class LumberJack extends AbstractProductionBuilding
         return 100 * 1.1 ^ $this->level / $this->constructionYard->level;
     }
 
-    public function upgrade()
+    public function upgrade(): void
     {
         // TODO: Implement upgrade() method.
     }

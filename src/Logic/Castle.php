@@ -8,29 +8,25 @@ use Idle\Logic\Buildings\StoneMason;
 use Idle\Logic\Events\EventQueue;
 use Idle\Logic\Time\Clock;
 use Idle\Logic\Time\Time;
+use InvalidArgumentException;
 
 class Castle
 {
     private Time $time;
     private Res $res;
-    private ConstructionYard $constructionYard;
-    private LumberJack $lumberjack;
-    private StoneMason $stoneMason;
-    private EventQueue $eventQueue;
-    private Clock $clock;
+    private readonly ConstructionYard $constructionYard;
+    private readonly LumberJack $lumberjack;
+    private readonly StoneMason $stoneMason;
+    private readonly EventQueue $eventQueue;
+    private readonly Clock $clock;
 
-    /**
-     * @param ConstructionYard $constructionYard
-     * @param LumberJack $lumberjack
-     * @param StoneMason $stoneMason
-     */
-    public function __construct(ConstructionYard $constructionYard, LumberJack $lumberjack, StoneMason $stoneMason)
+    public function __construct(Time $time, Res $res, LumberJack $lumberjack, StoneMason $stoneMason, Clock $clock)
     {
-        $this->time = time();
-        $this->res = new Res(0, 0);
-        $this->constructionYard = $constructionYard;
+        $this->time = $time;
+        $this->res = $res;
         $this->lumberjack = $lumberjack;
         $this->stoneMason = $stoneMason;
+        $this->clock = $clock;
     }
 
     public function upgrade(string $building): void
@@ -55,27 +51,30 @@ class Castle
         return $this->res;
     }
 
-    public function update(int $millis): void
+    public function update(): void
     {
-        $event = $this->eventQueue->getNext();
         $now = $this->clock->getCurrentDate();
-        $diff = $now->getMillis() - $event->getDate();
-        if ($millis > $diff) {
-            $event->fire();
-        }
-        // TODO
+        $diff = $now->getMillis() - $this->time->getMillis();
+        $this->res->add($this->lumberjack->getIncome($diff));
+        $this->res->add($this->stoneMason->getIncome($diff));
     }
 
-    public function getLevel(string $building)
+    public function getLevel(string $building): int
     {
+        return match ($building) {
+            ConstructionYard::class => $this->constructionYard->getLevel(),
+            LumberJack::class => $this->lumberjack->getLevel(),
+            StoneMason::class => $this->stoneMason->getLevel(),
+            default => throw new InvalidArgumentException(),
+        };
     }
 
-    public function isUpgrading(): bool
+    public function getCost(string $building): Res
     {
-        return false;
-    }
-
-    public function abortUpgrade(): void
-    {
+        return match ($building) {
+            LumberJack::class => $this->lumberjack->getUpgradeCost(),
+            StoneMason::class => $this->stoneMason->getUpgradeCost(),
+            default => throw new InvalidArgumentException(),
+        };
     }
 }

@@ -1,4 +1,4 @@
-all: validate update pds phpcs test
+all: update validate pds phpcs test
 
 clean:
 	git clean -f -d -X

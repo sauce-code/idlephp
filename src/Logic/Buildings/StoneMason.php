@@ -9,7 +9,7 @@ class StoneMason extends AbstractProductionBuilding
     const INCOME_RATE_BASE = 1.1;
     const INCOME_RATE_EXPONENT = .007;
 
-    public function getIncomeRate(): int
+    public function getIncomeRate(): float
     {
         return self::INCOME_RATE_BASE ^ $this->level * self::INCOME_RATE_EXPONENT;
     }
