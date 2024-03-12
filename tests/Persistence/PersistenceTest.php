@@ -20,9 +20,9 @@ class PersistenceTest extends TestCase
         $actual = $persistence->readCastle();
         $expected = new Castle(
             new Time(123),
-            new Res(2, 4),
+            new Res(100, 147),
             new LumberJack(1),
-            new StoneMason(1),
+            new StoneMason(2),
             new Clock()
         );
         $this->assertEquals($expected, $actual);
