@@ -9,7 +9,7 @@ class LumberJack extends AbstractProductionBuilding
 
     public function getIncomeRate(): float
     {
-        return 1.1 ^ $this->level * .1;
+        return pow(1.1, $this->level) * .1;
     }
 
     public function getIncome(int $millis): Res
@@ -35,6 +35,6 @@ class LumberJack extends AbstractProductionBuilding
 
     public function upgrade(): void
     {
-        // TODO: Implement upgrade() method.
+        $this->level += 1;
     }
 }

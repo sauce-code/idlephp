@@ -11,14 +11,14 @@ class StoneMason extends AbstractProductionBuilding
 
     public function getIncomeRate(): float
     {
-        return self::INCOME_RATE_BASE ^ $this->level * self::INCOME_RATE_EXPONENT;
+        return pow(self::INCOME_RATE_BASE, $this->level) * self::INCOME_RATE_EXPONENT;
     }
 
     public function getIncome(int $millis): Res
     {
         return new Res(
+            0,
             $this->getIncomeRate() * $millis,
-            0
         );
     }
 
@@ -26,10 +26,11 @@ class StoneMason extends AbstractProductionBuilding
     public function getUpgradeCost(): Res
     {
         return new Res(
-            1.1 ^ $this->level * 1.1,
-            1.1 ^ $this->level * 1.2
+            pow(1.1, $this->level) * 1.1,
+            pow(1.1, $this->level) * 1.2
         );
     }
+
     public function getUpgradeTime(): int
     {
         return 100 * 1.1 ^ $this->level / $this->constructionYard->level;
@@ -37,6 +38,6 @@ class StoneMason extends AbstractProductionBuilding
 
     public function upgrade(): void
     {
-        // TODO: Implement upgrade() method.
+        $this->level += 1;
     }
 }

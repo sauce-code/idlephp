@@ -7,11 +7,20 @@ body {
     background-color: #99ff99;
 }
 
-table {
+table#res {
+    border-collapse: collapse;
+    margin: 10px auto;
+}
+
+table#buildings {
     border-collapse: collapse;
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
+}
+
+table, tr, td, th {
+    border: 1px solid;
 }
 
 div#container {
@@ -21,7 +30,6 @@ div#container {
     background-color: #99ff99;
     display: grid;
     grid-template-columns: 200px 1000px;
-    /*grid-template-rows: auto;*/
     grid-template-areas:
         "header header"
         "nav main"
@@ -35,7 +43,8 @@ header {
 
 main {
     grid-area: main;
-    background-color: #888;
+    background-color: #777;
+    padding: 5px;
 }
 
 nav {
@@ -46,43 +55,6 @@ nav {
 footer {
     grid-area: footer;
     background-color: #999;
-}
-
-div#res {
-    margin-left: auto;
-    margin-right: auto;
-    width: fit-content;
-    background-color: #89a;
-    display: grid;
-    grid-template-columns: 100px 100px;
-    /*grid-template-rows: auto;*/
-    grid-template-areas:
-        "name-lumber name-stone"
-        "value-lumber value-stone";
-}
-
-div#res-name-lumber {
-    grid-area: name-lumber;
-    background-color: #789;
-    text-align: center;
-}
-
-div#res-name-stone {
-    grid-area: name-stone;
-    background-color: #678;
-    text-align: center;
-}
-
-div#res-value-lumber {
-    grid-area: value-lumber;
-    background-color: #567;
-    text-align: center;
-}
-
-div#res-value-stone {
-    grid-area: value-stone;
-    background-color: #456;
-    text-align: center;
 }
 
 a.nav-button {
@@ -97,74 +69,19 @@ a.nav-button {
     text-align: center;
 }
 
-div#building {
-    margin-left: auto;
-    margin-right: auto;
-    width: fit-content;
-    background-color: #090;
-    display: grid;
-    grid-template-columns: 200px 200px 200px 200px;
-    /*grid-template-rows: auto;*/
-    grid-template-areas:
-        "building-name building-level building-cost";
-}
-
-div#building-name {
-    grid-area: building-name;
-    background-color: #080;
+a.upgrade-button {
+    display: block;
+    padding: 1px 6px;
+    margin: 5px;
+    border: 1px outset buttonborder;
+    border-radius: 3px;
+    color: buttontext;
+    background-color: buttonface;
+    text-decoration: none;
     text-align: center;
 }
 
-div#building-level {
-    grid-area: building-level;
-    background-color: #070;
-    text-align: center;
-}
-
-div#building-cost {
-    grid-area: building-cost;
-    background-color: #070;
-    text-align: center;
-}
-
-div#building-up {
-    grid-area: building-up;
-    background-color: #070;
-    text-align: center;
-}
-
-div.building {
-    margin-left: auto;
-    margin-right: auto;
-    width: fit-content;
-    background-color: #090;
-    display: grid;
-    grid-template-columns: 200px 200px 200px 200px;
-    /*grid-template-rows: auto;*/
-    grid-template-areas:
-        "building-name building-level building-cost building-up";
-}
-
-div.buildings-name {
-    grid-area: building-name;
-    background-color: #060;
-    text-align: center;
-}
-
-div.building-level {
-    grid-area: building-level;
-    background-color: #050;
-    text-align: center;
-}
-
-div.building-cost {
-    grid-area: building-cost;
-    background-color: #050;
-    text-align: center;
-}
-
-div.building-up {
-    grid-area: building-up;
-    background-color: #050;
+table#buildings {
+    width: 100%;
     text-align: center;
 }

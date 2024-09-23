@@ -2,6 +2,7 @@
   "name": "idlephp/idlephp",
   "description": "This is a short description.",
   "license": "MIT",
+  "type": "project",
   "require": {
     "ext-dom": "*",
     "ext-mysqli": "*",
